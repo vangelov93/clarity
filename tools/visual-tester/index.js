@@ -18,6 +18,7 @@ const argv = require('minimist')(process.argv.slice(2), {
     overwrite: false,
     openBrowser: false,
     disableIncognito: false,
+    testGroups: '',
     basePath: RUNNER_CONFIG.BASE_PATH,
     currentPath: RUNNER_CONFIG.TMP_PATH,
     diffPath: RUNNER_CONFIG.DIFF_PATH,
@@ -29,6 +30,7 @@ const r = new Runner({
   overwrite: argv.overwrite,
   openBrowser: argv.openBrowser,
   disableIncognito: argv.disableIncognito,
+  testGroups: argv.testGroups,
   reporter: argv.reporter,
   basePath: argv.basePath,
   currentPath: argv.currentPath,
@@ -37,6 +39,7 @@ const r = new Runner({
 
 /** Work on this, to improve the testing interface */
 global.it = r.it.bind(r);
+global.group = r.group.bind(r);
 global.xit = r.xit.bind(r);
 global.fit = r.fit.bind(r);
 global.setup = r.setup.bind(r);

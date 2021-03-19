@@ -37,6 +37,9 @@ module.exports = class Runner {
   // Run in incognito mode
   incognito = true;
 
+  // Test groups
+  testGroups = '';
+
   /** Setup instance */
   constructor(props = {}) {
     this.config = Object.assign(this.config, props);
@@ -54,9 +57,6 @@ module.exports = class Runner {
       this.config.puppeteerConfig.headless = false;
     }
 
-    if(this.config.disableIncognito) {
-      this.incognito = false;
-    }
   }
 
   /**
@@ -65,18 +65,27 @@ module.exports = class Runner {
    * @param {function|object} setup
    */
   it(url, setup) {
-    if (Object.keys(this.customSpecOptions)) {
-      if (typeof setup === 'function') setup = setup()
-      if (typeof setup === 'undefined') setup = {}
-      for (const [key, value] of Object.entries(this.customSpecOptions)) {
-        if (Object.keys(setup).includes(key) && Array.isArray(setup[key])) {
-          setup[key].push(value);
+    const options = this._parseTestOptions(setup)
+    this._tests.push(this._prepareTest(url, options));
+  }
+
+  /**
+   * A test group that contains tests
+   * @param {object} testGroup
+   */
+  group(testGroup) {
+    this.reporter.info(`Created test group \'${testGroup.name}\'. Tests count: ${testGroup.tests.length}`);
+    if (this.config.testGroups === '' || this.config.testGroups.includes(testGroup.name)) {
+      for (const test of testGroup.tests) {
+        if(test.options && test.options.exclude) {
+          this.xit(test.url, test.options)
+        } else if (test.options && test.options.focus) {
+          this.fit(test.url, test.options)
         } else {
-          setup[key] = value
+          this.it(test.url, test.options);
         }
       }
     }
-    this._tests.push(this._prepareTest(url, setup));
   }
 
   /**
@@ -85,7 +94,8 @@ module.exports = class Runner {
    * @param {function|object} setup
    */
   fit(url, setup) {
-    this._focusTests.push(this._prepareTest(url, setup));
+    const options = this._parseTestOptions(setup)
+    this._focusTests.push(this._prepareTest(url, options));
   }
 
   /**
@@ -172,7 +182,7 @@ module.exports = class Runner {
 
     /* Use one puppet for all */
     this.puppet = await this.spawnPuppet();
-    if (this.incognito) {
+    if (this.config.disableIncognito) {
       this.incognitoContext = await this.puppet.createIncognitoBrowserContext();
     }
   }
@@ -226,7 +236,7 @@ module.exports = class Runner {
      */
     try {
       /* Create new page and navigate to it. */
-      const page = this.incognito ? await this.incognitoContext.newPage() : await this.puppet.newPage();
+      const page = this.config.disableIncognito ? await this.incognitoContext.newPage() : await this.puppet.newPage();
       await page.goto(`${options.baseUrl ? options.baseUrl : this.config.baseUrl}${url}`, {
         waitUntil: ['load', 'domcontentloaded'],
       });
@@ -386,5 +396,24 @@ module.exports = class Runner {
         element.style.opacity = "0";
       }
     }, elementSelector);
+  }
+
+  /**
+   * Parses the test options
+   * @param {function| object} setup the test's additional options
+   */
+  _parseTestOptions(setup) {
+    if (Object.keys(this.customSpecOptions)) {
+      if (typeof setup === 'function') setup = setup()
+      if (typeof setup === 'undefined') setup = {}
+      for (const [key, value] of Object.entries(this.customSpecOptions)) {
+        if (Object.keys(setup).includes(key) && Array.isArray(setup[key])) {
+          setup[key].push(value);
+        } else {
+          setup[key] = value
+        }
+      }
+    }
+    return setup;
   }
 };

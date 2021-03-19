@@ -25,5 +25,6 @@ module.exports = {
   currentPath: '',
   diffPath: '',
   openBrowser: false,
-  disableIncognito: false
+  disableIncognito: false,
+  testGroups: ''
 };

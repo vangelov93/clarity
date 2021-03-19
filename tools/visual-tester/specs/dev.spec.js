@@ -7,62 +7,91 @@ specOptions({
 });
 
 it('accordion');
-it('alert/static/styles');
+group({
+  name: 'alerts',
+  tests: [
+    {url: 'alert/static/styles'},
+    {url: 'alert/static/sizes'},
+    {url: 'alert/static/cards'},
+    {url: 'alert/static/modals'},
+    {url: 'alert/static/content-area'},
+    {url: 'alert/static/app-level'},
+    {url: 'alert/angular/not-closable'},
+    {url: 'alert/angular/small'},
+    {url: 'alert/angular/close-events'},
+    {url: 'alert/angular/success'},
+    {url: 'alert/angular/app-level'},
+    {url: 'alert/angular/app-level-alerts'}
+    ],
+  options: {}
+})
 
-it('alert/static/sizes');
-it('alert/static/cards');
-it('alert/static/modals');
-it('alert/static/content-area');
-it('alert/static/app-level');
-it('alert/angular/not-closable');
-it('alert/angular/small');
-it('alert/angular/close-events');
-it('alert/angular/success');
-it('alert/angular/app-level');
-it('alert/angular/app-level-alerts');
+group({
+  name: 'badges',
+  tests: [
+    {url: 'badges/color-options'},
+    {url: 'badges/status'}
+  ],
+  options: {}
+})
 
-it('badges/color-options');
-it('badges/status');
+group({
+  name: 'button-group',
+  tests: [
+    {url: 'button-group/static/basic-structure'},
+    {url: 'button-group/static/types'},
+    {url: 'button-group/static/directions'},
+    {url: 'button-group/static/icons'},
+    {url: 'button-group/static/icon-button-group'},
+    {url: 'button-group/static/icons-with-text'},
+    {url: 'button-group/static/checkboxes'},
+    {url: 'button-group/static/radios'},
+    {url: 'button-group/static/cards'},
+    {url: 'button-group/angular/basic-structure'},
+    {url: 'button-group/angular/directions'},
+    {url: 'button-group/angular/icon-button'},
+    {url: 'button-group/angular/loading-button'},
+    {url: 'button-group/angular/hide-overflow'},
+    {url: 'button-group/angular/mixed-buttons'},
+    {url: 'button-group/angular/move-button-in-menu'},
+    {url: 'button-group/angular/move-multiple-buttons-in-menu'}
+  ],
+  options: {}
+})
 
-it('button-group/static/basic-structure');
-it('button-group/static/types');
-it('button-group/static/directions');
-it('button-group/static/icons');
-it('button-group/static/icon-button-group');
-it('button-group/static/icons-with-text');
-it('button-group/static/checkboxes');
-it('button-group/static/radios');
-it('button-group/static/cards');
-it('button-group/angular/basic-structure');
-it('button-group/angular/directions');
-it('button-group/angular/icon-button');
-it('button-group/angular/loading-button');
-it('button-group/angular/hide-overflow');
-it('button-group/angular/mixed-buttons');
-it('button-group/angular/move-button-in-menu');
-it('button-group/angular/move-multiple-buttons-in-menu');
+group({
+  name: 'buttons',
+  tests: [
+    {url: 'buttons/real-button'},
+    {url: 'buttons/primary-button'},
+    {url: 'buttons/secondary-button'},
+    {url: 'buttons/tertiary-button'},
+    {url: 'buttons/inverse-button'},
+    {url: 'buttons/button-states'},
+    {url: 'buttons/button-loading', options: {exclude: true}},
+    {url: 'buttons/button-sizes'},
+    {url: 'buttons/icons'},
+    {url: 'buttons/icon-buttons'},
+    {url: 'buttons/buttons-test'}
+  ],
+  options: {}
+})
 
-it('buttons/real-button');
-it('buttons/primary-button');
-it('buttons/secondary-button');
-it('buttons/tertiary-button');
-it('buttons/inverse-button');
-it('buttons/button-states');
-xit('buttons/button-loading');
-it('buttons/button-sizes');
-it('buttons/icons');
-it('buttons/icon-buttons');
-it('buttons/buttons-test');
-
-it('card/grid');
-it('card/clickable', {hoverOver: 'a.card.clickable'});
-it('card/dropdown');
-it('card/images');
-it('card/layout');
-it('card/masonry');
-it('card/media-block');
-it('card/list-group');
-it('card/old');
+group({
+  name: 'card',
+  tests: [
+    {url: 'card/grid'},
+    {url: 'card/clickable', options: {hoverOver: 'a.card.clickable'}},
+    {url: 'card/dropdown'},
+    {url: 'card/images'},
+    {url: 'card/layout'},
+    {url: 'card/masonry'},
+    {url: 'card/media-block'},
+    {url: 'card/list-group'},
+    {url: 'card/old'}
+  ],
+  options: {}
+})
 
 it('checkboxes');
 
@@ -72,103 +101,145 @@ it('combobox');
 
 it('custom-props');
 
-it('datagrid/structure');
-it('datagrid/kitchen-sicken');
-it('datagrid/custom-rendering');
-it('datagrid/smart-iterator');
-it('datagrid/binding-properties');
-it('datagrid/sorting');
-it('datagrid/filtering');
-it('datagrid/string-filtering');
-it('datagrid/pagination');
-it('datagrid/pagination-scrolling');
-it('datagrid/pagination-conditional');
-it('datagrid/selection');
-it('datagrid/selection-single');
-it('datagrid/selection-row-mode');
-it('datagrid/preserve-selection');
-it('datagrid/server-driven', { ignoreCSSAnimations: true });
-it('datagrid/placeholder');
-it('datagrid/scrolling');
-it('datagrid/column-sizing');
-it('datagrid/compact');
-it('datagrid/detail');
-it('datagrid/expandable-rows');
-it('datagrid/full');
-it('datagrid/test-cases');
-it('datagrid/test-cases-async');
-it('datagrid/hide-show');
-it('datagrid/responsive-footer');
-it('datagrid/conditional-selection');
+group({
+  name: 'datagrid',
+  tests: [
+    {url: 'datagrid/structure'},
+    {url: 'datagrid/kitchen-sicken'},
+    {url: 'datagrid/custom-rendering'},
+    {url: 'datagrid/smart-iterator'},
+    {url: 'datagrid/binding-properties'},
+    {url: 'datagrid/sorting'},
+    {url: 'datagrid/filtering'},
+    {url: 'datagrid/string-filtering'},
+    {url: 'datagrid/pagination'},
+    {url: 'datagrid/pagination-scrolling'},
+    {url: 'datagrid/pagination-conditional'},
+    {url: 'datagrid/selection'},
+    {url: 'datagrid/selection-single'},
+    {url: 'datagrid/selection-row-mode'},
+    {url: 'datagrid/preserve-selection'},
+    {url: 'datagrid/server-driven', options: { ignoreCSSAnimations: true }},
+    {url: 'datagrid/placeholder'},
+    {url: 'datagrid/scrolling'},
+    {url: 'datagrid/column-sizing'},
+    {url: 'datagrid/compact'},
+    {url: 'datagrid/detail'},
+    {url: 'datagrid/expandable-rows'},
+    {url: 'datagrid/full'},
+    {url: 'datagrid/test-cases'},
+    {url: 'datagrid/test-cases-async'},
+    {url: 'datagrid/hide-show'},
+    {url: 'datagrid/responsive-footer'},
+    {url: 'datagrid/conditional-selection'},
+  ],
+  options: {}
+})
 
 it('datalist');
 
-it('drag-and-drop/draggable');
-it('drag-and-drop/draggable-handle');
-it('drag-and-drop/custom-ghost');
-it('drag-and-drop/custom-ghost-and-handle');
-it('drag-and-drop/droppable');
-it('drag-and-drop/drop-tolerance');
-it('drag-and-drop/groupng');
+group({
+  name: 'drag-and-drop',
+  tests: [
+    {url: 'drag-and-drop/draggable'},
+    {url: 'drag-and-drop/draggable-handle'},
+    {url: 'drag-and-drop/custom-ghost'},
+    {url: 'drag-and-drop/custom-ghost-and-handle'},
+    {url: 'drag-and-drop/droppable'},
+    {url: 'drag-and-drop/drop-tolerance'},
+    {url: 'drag-and-drop/groupng'}
+  ],
+  options: {}
+})
 
-it('datepicker/ng-model-auto-wrapped');
-it('datepicker/ng-model-wrapper-present');
-it('datepicker/datepicker-date-input');
-it('datepicker/datepicker-date-input-wrapper-presentit', { ignoreCSSAnimations: true });
-it('datepicker/disabled');
-it('datepicker/datepicker-min-max');
+group({
+  name: 'datepicker',
+  tests: [
+    {url: 'datepicker/ng-model-auto-wrapped'},
+    {url: 'datepicker/ng-model-wrapper-present'},
+    {url: 'datepicker/datepicker-date-input'},
+    {url: 'datepicker/datepicker-date-input-wrapper-presentit', options: { ignoreCSSAnimations: true }},
+    {url: 'datepicker/disabled'},
+    {url: 'datepicker/datepicker-min-max'},
+  ],
+  options: {}
+})
 
-it('dropdown/default');
-it('dropdown/positioning');
-it('dropdown/icon-toggle');
-it('dropdown/buttonlink-toggle');
-it('dropdown/angular-positioning');
-it('dropdown/angular-nested');
-it('dropdown/multi-click');
-it('dropdown/dropdown-header');
+group({
+  name: 'dropdown',
+  tests: [
+    {url: 'dropdown/default'},
+    {url: 'dropdown/positioning'},
+    {url: 'dropdown/icon-toggle'},
+    {url: 'dropdown/buttonlink-toggle'},
+    {url: 'dropdown/angular-positioning'},
+    {url: 'dropdown/angular-nested'},
+    {url: 'dropdown/multi-click'},
+    {url: 'dropdown/dropdown-header'}
+  ],
+  options: {}
+})
 
-it('forms/layout-vertical');
-it('forms/layout-horizontal');
-it('forms/layout-compact');
-it('forms/layout-vertical-grid');
-it('forms/layout-horizontal-grid');
-it('forms/layout-compact-grid');
-it('forms/layout-vertical-angular');
-it('forms/layout-horizontal-angular');
-it('forms/layout-compact-angular');
-it('forms/layout-horizontal-angular-grid');
-it('forms/layout-compact-angular-grid');
-it('forms/input-group');
-it('forms/layout-modal');
-it('forms/text');
-it('forms/checkbox');
-it('forms/radio');
-it('forms/file');
-it('forms/textarea');
-it('forms/select');
-it('forms/template-driven');
-it('forms/reactive');
-it('forms/reset');
-it('forms/a11y');
-it('forms/generic-container');
-it('forms/validation');
+group({
+  name: 'forms',
+  tests: [
+    {url: 'forms/layout-vertical'},
+    {url: 'forms/layout-horizontal'},
+    {url: 'forms/layout-compact'},
+    {url: 'forms/layout-vertical-grid'},
+    {url: 'forms/layout-horizontal-grid'},
+    {url: 'forms/layout-compact-grid'},
+    {url: 'forms/layout-vertical-angular'},
+    {url: 'forms/layout-horizontal-angular'},
+    {url: 'forms/layout-compact-angular'},
+    {url: 'forms/layout-horizontal-angular-grid'},
+    {url: 'forms/layout-compact-angular-grid'},
+    {url: 'forms/input-group'},
+    {url: 'forms/layout-modal'},
+    {url: 'forms/text'},
+    {url: 'forms/checkbox'},
+    {url: 'forms/radio'},
+    {url: 'forms/file'},
+    {url: 'forms/textarea'},
+    {url: 'forms/select'},
+    {url: 'forms/template-driven'},
+    {url: 'forms/reactive'},
+    {url: 'forms/reset'},
+    {url: 'forms/a11y'},
+    {url: 'forms/generic-container'},
+    {url: 'forms/validation'}
+  ],
+  options: {}
+})
 
-it('grid/grid-columns');
-it('grid/grid-columns-stacking');
-it('grid/grid-columns-offsetting');
-it('grid/grid-column-wrapping');
-it('grid/grid-equal-widths');
-it('grid/grid-one-col-width');
-it('grid/grid-variable-width-content');
-it('grid/grid-equal-width-multi-row');
+group({
+  name: 'grid',
+  tests: [
+    {url: 'grid/grid-columns'},
+    {url: 'grid/grid-columns-stacking'},
+    {url: 'grid/grid-columns-offsetting'},
+    {url: 'grid/grid-column-wrapping'},
+    {url: 'grid/grid-equal-widths'},
+    {url: 'grid/grid-one-col-width'},
+    {url: 'grid/grid-variable-width-content'},
+    {url: 'grid/grid-equal-width-multi-row'}
+  ],
+  options: {}
+})
 
-it('iconography/selection');
-it('iconography/color-options');
-it('iconography/inverse-color');
-it('iconography/size');
-it('iconography/orientation');
-it('iconography/variants');
-it('iconography/view-box-test');
+group({
+  name: 'iconography',
+  tests: [
+    {url: 'iconography/selection'},
+    {url: 'iconography/color-options'},
+    {url: 'iconography/inverse-color'},
+    {url: 'iconography/size'},
+    {url: 'iconography/orientation'},
+    {url: 'iconography/variants'},
+    {url: 'iconography/view-box-test'}
+  ],
+  options: {}
+})
 
 it('images');
 
@@ -176,67 +247,103 @@ it('input');
 
 it('🇫🇷♿');
 
-it('labels/default');
-it('labels/color-options');
-it('labels/clickable');
-it('labels/status');
-it('labels/with-badges');
+group({
+  name: 'labels',
+  tests: [
+    {url: 'labels/default'},
+    {url: 'labels/color-options'},
+    {url: 'labels/clickable'},
+    {url: 'labels/status'},
+    {url: 'labels/with-badges'}
+  ],
+  options: {}
+})
 
-it('layout/layout-all');
-it('layout/layout-no-subnav');
-it('layout/layout-no-sidenav');
-it('layout/layout-only-header');
-it('layout/layout-subnav-primary');
-it('layout/layout-sidenav-primary');
-it('layout/layout-additional-sections');
+group({
+  name: 'layout',
+  tests: [
+    {url: 'layout/layout-all'},
+    {url: 'layout/layout-no-subnav'},
+    {url: 'layout/layout-no-sidenav'},
+    {url: 'layout/layout-only-header'},
+    {url: 'layout/layout-subnav-primary'},
+    {url: 'layout/layout-sidenav-primary'},
+    {url: 'layout/layout-additional-sections'}
+  ],
+  options: {}
+})
 
-it('lists/lists-ul');
-it('lists/lists-unstyled');
-it('lists/lists-ol');
-it('lists/lists-mixed');
-it('lists/lists-compact');
-it('lists/lists-in-cards');
+group({
+  name: 'lists',
+  tests: [
+    {url: 'lists/lists-ul'},
+    {url: 'lists/lists-unstyled'},
+    {url: 'lists/lists-ol'},
+    {url: 'lists/lists-mixed'},
+    {url: 'lists/lists-compact'},
+    {url: 'lists/lists-in-cards'}
+  ],
+  options: {}
+})
 
 it('login');
 
-it('modal/static');
-it('modal/old-close-button');
-it('modal/sizes');
-it('modal/max-height');
-it('modal/backdrop');
-it('modal/animation');
-it('modal/dynamic-show');
-it('modal/dynamic-sizing');
-it('modal/static-backdrop');
-it('modal/not-closable');
-it('modal/focus-trap');
-it('modal/modal-form');
+group({
+  name: 'modal',
+  tests: [
+    {url: 'modal/static'},
+    {url: 'modal/old-close-button'},
+    {url: 'modal/sizes'},
+    {url: 'modal/max-height'},
+    {url: 'modal/backdrop'},
+    {url: 'modal/animation'},
+    {url: 'modal/dynamic-show'},
+    {url: 'modal/dynamic-sizing'},
+    {url: 'modal/static-backdrop'},
+    {url: 'modal/not-closable'},
+    {url: 'modal/focus-trap'},
+    {url: 'modal/modal-form'}
+  ],
+  options: {}
+})
 
-it('navigation/headers');
-it('navigation/nav-tabs');
-it('navigation/sidenav');
-it('navigation/subnav');
-it('navigation/responsive-nav1');
-it('navigation/responsive-nav2');
-it('navigation/headers/header-types');
-it('navigation/headers/header-colors');
-it('navigation/headers/header-types-old');
+group({
+  name: 'navigation',
+  tests: [
+    {url: 'navigation/headers'},
+    {url: 'navigation/nav-tabs'},
+    {url: 'navigation/sidenav'},
+    {url: 'navigation/subnav'},
+    {url: 'navigation/responsive-nav1'},
+    {url: 'navigation/responsive-nav2'},
+    {url: 'navigation/headers/header-types'},
+    {url: 'navigation/headers/header-colors'},
+    {url: 'navigation/headers/header-types-old'}
+  ],
+  options: {}
+})
 
 it('password');
 
-// it('popovers'); // ERROR ON THIS PAGE!
+xit('popovers');
 
-it('progress-bars/progress-bar-examples');
-it('progress-bars/progress-bar-colors');
-it('progress-bars/progress-bar-animations');
-it('progress-bars/progress-bar-cards');
-it('progress-bars/progress-bar-sidenav');
-it('progress-bars/progress-bar-loop');
-it('progress-bars/progress-bar-static');
-it('progress-bars/progress-bar-static-cards');
-it('progress-bars/progress-bar-inline');
-it('progress-bars/progress-bar-inline-cards');
-it('progress-bars/progress-bar-component');
+group({
+  name: 'progress-bars',
+  tests: [
+    {url: 'progress-bars/progress-bar-examples'},
+    {url: 'progress-bars/progress-bar-colors'},
+    {url: 'progress-bars/progress-bar-animations'},
+    {url: 'progress-bars/progress-bar-cards'},
+    {url: 'progress-bars/progress-bar-sidenav'},
+    {url: 'progress-bars/progress-bar-loop'},
+    {url: 'progress-bars/progress-bar-static'},
+    {url: 'progress-bars/progress-bar-static-cards'},
+    {url: 'progress-bars/progress-bar-inline'},
+    {url: 'progress-bars/progress-bar-inline-cards'},
+    {url: 'progress-bars/progress-bar-component'}
+  ],
+  options: {}
+})
 
 it('radios');
 
@@ -248,81 +355,134 @@ it('signposts');
 
 it('spinners', { ignoreCSSAnimations: true });
 
-it('stack-view/static');
-it('stack-view/angular-basic');
-it('stack-view/angular-modal-edit');
-it('stack-view/angular-lazyload');
+group({
+  name: 'stack-view',
+  tests: [
+    {url: 'stack-view/static'},
+    {url: 'stack-view/angular-basic'},
+    {url: 'stack-view/angular-modal-edit'},
+    {url: 'stack-view/angular-lazyload'}
+  ],
+  options: {}
+})
 
 it('stepper');
 
-it('tables/tables-basic');
-it('tables/tables-leftcell');
-it('tables/tables-multiline');
-it('tables/tables-noborder');
-it('tables/tables-compact');
-it('tables/tables-compact-noborder');
-it('tables/tables-vertical');
-it('tables/tables-vertical-noborder-compact');
-it('tables/tables-width');
+group({
+  name: 'tables',
+  tests: [
+    {url: 'tables/tables-basic'},
+    {url: 'tables/tables-leftcell'},
+    {url: 'tables/tables-multiline'},
+    {url: 'tables/tables-noborder'},
+    {url: 'tables/tables-compact'},
+    {url: 'tables/tables-compact-noborder'},
+    {url: 'tables/tables-vertical'},
+    {url: 'tables/tables-vertical-noborder-compact'},
+    {url: 'tables/tables-width'}
+  ],
+  options: {}
+})
 
-it('tabs/static');
-it('tabs/angular');
+group({
+  name: 'tabs',
+  tests: [
+    {url: 'tabs/static'},
+    {url: 'tabs/angular'}
+  ],
+  options: {}
+})
 
 it('textarea');
 
-it('tree-view/eager-declarative');
-it('tree-view/eager-recursive');
-it('tree-view/lazy-declarative');
-it('tree-view/lazy-recursive', { ignoreCSSAnimations: true });
+group({
+  name: 'tree-view',
+  tests: [
+    {url: 'tree-view/eager-declarative'},
+    {url: 'tree-view/eager-recursive'},
+    {url: 'tree-view/lazy-declarative'},
+    {url: 'tree-view/lazy-recursive', options: { ignoreCSSAnimations: true }},
+    {url: 'tree-view/nodes-with-icons'},
+    {url: 'tree-view/routing'},
+    {url: 'tree-view/pre-selection'}
+  ],
+  options: {}
+})
 
-it('tree-view/nodes-with-icons');
-it('tree-view/routing');
-it('tree-view/pre-selection');
-
-it('timeline/static', { ignoreCSSAnimations: true });
-it('timeline/angular', { ignoreCSSAnimations: true });
+group({
+  name: 'timeline',
+  tests: [
+    {url: 'timeline/static', options: { ignoreCSSAnimations: true }},
+    {url: 'timeline/angular', options: { ignoreCSSAnimations: true }}
+],
+  options: {}
+})
 
 it('toggles');
 
-it('tooltips/sizes');
-it('tooltips/directions');
-it('tooltips/angular');
+group({
+  name: 'tooltips',
+  tests: [
+    {url: 'tooltips/sizes'},
+    {url: 'tooltips/directions'},
+    {url: 'tooltips/angular'}
+  ],
+  options: {}
+})
 
-it('typography/typography-font-weight');
-it('typography/typography-headers');
-it('typography/typography-text');
-it('typography/typography-links');
-it('typography/typography-font-char-test');
-it('typography/typography-line-height');
-it('typography/typography-font-autopsy');
+group({
+  name: 'typography',
+  tests: [
+    {url: 'typography/typography-font-weight'},
+    {url: 'typography/typography-headers'},
+    {url: 'typography/typography-text'},
+    {url: 'typography/typography-links'},
+    {url: 'typography/typography-font-char-test'},
+    {url: 'typography/typography-line-height'},
+    {url: 'typography/typography-font-autopsy'}
+  ],
+  options: {}
+})
 
-it('vertical-nav/static');
-it('vertical-nav/basic');
-it('vertical-nav/header-and-divider');
-it('vertical-nav/collapsible');
-it('vertical-nav/icons');
-it('vertical-nav/nested-menus');
-it('vertical-nav/nested-icon-menus');
-it('vertical-nav/partial-nested-menus');
-it('vertical-nav/partial-nested-icon-menus');
-it('vertical-nav/routing');
-it('vertical-nav/accessibility');
-it('vertical-nav/without-expanded-directive');
-it('vertical-nav/unstructured-routes');
-it('vertical-nav/highlights');
-it('vertical-nav/all');
+group({
+  name: 'vertical-nav',
+  tests: [
+    {url: 'vertical-nav/static'},
+    {url: 'vertical-nav/basic'},
+    {url: 'vertical-nav/header-and-divider'},
+    {url: 'vertical-nav/collapsible'},
+    {url: 'vertical-nav/icons'},
+    {url: 'vertical-nav/nested-menus'},
+    {url: 'vertical-nav/nested-icon-menus'},
+    {url: 'vertical-nav/partial-nested-menus'},
+    {url: 'vertical-nav/partial-nested-icon-menus'},
+    {url: 'vertical-nav/routing'},
+    {url: 'vertical-nav/accessibility'},
+    {url: 'vertical-nav/without-expanded-directive'},
+    {url: 'vertical-nav/unstructured-routes'},
+    {url: 'vertical-nav/highlights'},
+    {url: 'vertical-nav/all'}
+  ],
+  options: {}
+})
 
-it('wizard/basic');
-it('wizard/skip-page');
-it('wizard/form-validation');
-it('wizard/async-validation');
-it('wizard/not-closable');
-it('wizard/custom-buttons');
-it('wizard/jump-to');
-it('wizard/step-error');
-it('wizard/reset');
-it('wizard/header-actions');
-it('wizard/alt-cancel');
-it('wizard/alt-next');
-it('wizard/force-forward');
-it('wizard/stop-navigation');
+group({
+  name: 'wizard',
+  tests: [
+    {url: 'wizard/basic'},
+    {url: 'wizard/skip-page'},
+    {url: 'wizard/form-validation'},
+    {url: 'wizard/async-validation'},
+    {url: 'wizard/not-closable'},
+    {url: 'wizard/custom-buttons'},
+    {url: 'wizard/jump-to'},
+    {url: 'wizard/step-error'},
+    {url: 'wizard/reset'},
+    {url: 'wizard/header-actions'},
+    {url: 'wizard/alt-cancel'},
+    {url: 'wizard/alt-next'},
+    {url: 'wizard/force-forward'},
+    {url: 'wizard/stop-navigation'}
+  ],
+  options: {}
+})
