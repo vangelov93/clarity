@@ -35,7 +35,7 @@ module.exports = class DotReporter extends BaseReporter {
       errors.forEach(test => {
         if (test.type === 'fail-to-match') {
           process.stdout.write(
-            `❌ ${test.test} is not comparable with base image (${round(test.mismatch, 4)}% mismatch)\n`
+            `❌ '${test.name || test.test}' is not comparable with base image (${round(test.mismatch, 4)}% mismatch)\n`
           );
           process.stdout.write(`\t base    : ${path.join(this.config.basePath, test.filename)}\n`);
           process.stdout.write(`\t current : ${path.join(this.config.currentPath, test.filename)}\n`);

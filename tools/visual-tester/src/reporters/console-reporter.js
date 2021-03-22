@@ -25,7 +25,7 @@ module.exports = class ConsoleReporter extends BaseReporter {
     if (errors.length) {
       errors.forEach(error => {
         if (error.type === 'fail-to-match') {
-          console.log(`\n${error.test} fail:`);
+          console.log(`\n${error.name || error.test} fail:`);
           console.log(`\t base    : ${path.join(this.config.basePath, error.filename)}`);
           console.log(`\t current : ${path.join(this.config.currentPath, error.filename)}`);
           console.log(`\t diff    : ${path.join(this.config.diffPath, error.filename)}`);

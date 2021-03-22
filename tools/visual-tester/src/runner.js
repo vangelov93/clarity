@@ -77,9 +77,9 @@ module.exports = class Runner {
     this.reporter.info(`Created test group \'${testGroup.name}\'. Tests count: ${testGroup.tests.length}`);
     if (this.config.testGroups === '' || this.config.testGroups.includes(testGroup.name)) {
       for (const test of testGroup.tests) {
-        if(test.options && test.options.exclude) {
-          this.xit(test.url, test.options)
-        } else if (test.options && test.options.focus) {
+        test.options = {...test.options, ...{}}
+        test.options.name = test.name;
+        if (test.options && test.options.focus) {
           this.fit(test.url, test.options)
         } else {
           this.it(test.url, test.options);
@@ -140,8 +140,9 @@ module.exports = class Runner {
 
     if (this.overwrite) this.reporter.info(`Overwriting base images`);
 
-    for (const test of listOfTests) {
-      await this.runTest.bind(this)(test.url, test.options);
+    for (let i=0; i < listOfTests.length; i++) {
+      const test = listOfTests[i]
+      await this.runTest.bind(this)(test.url, test.options, i);
     }
 
     await this._afterRun();
@@ -230,7 +231,7 @@ module.exports = class Runner {
     this.reporter.retry(url, this.retries);
   }
 
-  async runTest(url, options) {
+  async runTest(url, options, index) {
     /**
      * Catch all errors and try to handle them here.
      */
@@ -255,6 +256,11 @@ module.exports = class Runner {
        * only on that element and ignore everything else.
        */
       if (options.selector !== '' || this.globalOptions.selector !== '') {
+
+        if (options.before) {
+          await options.before(page)
+        }
+
         const query = options.selector || this.globalOptions.selector;
         await page.waitForSelector(query);
         const selector = await page.$(query);
@@ -264,18 +270,15 @@ module.exports = class Runner {
             await this._removeElementsFromDom(elToRemove, page);
           }
         }
-        if (options.hoverOver && options.hoverOver !== '') {
-          const elementToHoverOver = await page.$(options.hoverOver);
-          elementToHoverOver.hover()
-        }
+        const image = this._testImage(url + index)
         const clip = await selector.boundingBox();
-        await page.screenshot({ path: path.join(this.config.currentPath, this._testImage(url)), clip });
+        await page.screenshot({ path: path.join(this.config.currentPath, image), clip });
       } else {
-        await page.screenshot({ path: path.join(this.config.currentPath, this._testImage(url)) });
+        await page.screenshot({ path: path.join(this.config.currentPath, image) });
       }
       /* make screenshot of the current page */
       /* compare them with base */
-      await this.compareSnapshots(url, options);
+      await this.compareSnapshots(url + index, options);
       page.close();
     } catch (e) {
       /**
@@ -284,7 +287,7 @@ module.exports = class Runner {
        */
       if (this.retries < this.config.retries) {
         await this.retryPuppet(url);
-        await this.runTest.bind(this)(url, options);
+        await this.runTest.bind(this)(url, options, index);
         return;
       }
       /**
@@ -293,6 +296,7 @@ module.exports = class Runner {
       this.reporter.error(`Failed to run ${url} after ${this.retries} retries with error`, e);
       this.retries = 0;
       this.errors.push({
+        name: options.name,
         test: url,
         type: 'fail-to-run',
         message: e.toString(),
@@ -332,6 +336,7 @@ module.exports = class Runner {
       await fs.writeFile(path.join(this.config.diffPath, file), diff.getBuffer());
       this.errors.push({
         test: url,
+        name: options.name,
         filename: file,
         type: 'fail-to-match',
         mismatch: diff.rawMisMatchPercentage,
@@ -402,17 +407,10 @@ module.exports = class Runner {
    * Parses the test options
    * @param {function| object} setup the test's additional options
    */
-  _parseTestOptions(setup) {
+  _parseTestOptions(setup = {}) {
     if (Object.keys(this.customSpecOptions)) {
       if (typeof setup === 'function') setup = setup()
-      if (typeof setup === 'undefined') setup = {}
-      for (const [key, value] of Object.entries(this.customSpecOptions)) {
-        if (Object.keys(setup).includes(key) && Array.isArray(setup[key])) {
-          setup[key].push(value);
-        } else {
-          setup[key] = value
-        }
-      }
+      setup = {...this.customSpecOptions, ...setup}
     }
     return setup;
   }
