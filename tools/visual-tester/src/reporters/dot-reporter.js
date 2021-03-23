@@ -51,7 +51,6 @@ module.exports = class DotReporter extends BaseReporter {
     process.stdout.write(
       `Summary:
       Total   tests: ${info.total}
-      Skipped tests: ${info.skipped}
       Focused tests: ${info.focused}
       Failed  tests: ${info.failed}
       Passed  tests: ${info.passed}\n`

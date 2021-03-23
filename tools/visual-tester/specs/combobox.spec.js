@@ -20,7 +20,7 @@ group({
             document.querySelector(selector).value = ""
           }, 'input[role="combobox"]');
           await page.type('input[role="combobox"]', '2', { delay: 1 })
-          await page.waitForTimeout(1000)
+          await page.waitForTimeout(100)
         }
       }
     },

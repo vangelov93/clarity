@@ -17,7 +17,7 @@ group({
         before: async function (page) {
           await page.waitForSelector('button#clr-accordion-header-clr-id-3-0');
           await page.$eval('button#clr-accordion-header-clr-id-3-0', form => form.click());
-          await page.waitForTimeout(1000);
+          await page.waitForTimeout(350);
         }
       }
     },
@@ -32,7 +32,7 @@ group({
           await page.$eval('button#clr-accordion-header-clr-id-4-1', form => form.click());
           await page.waitForSelector('button#clr-accordion-header-clr-id-6-1');
           await page.$eval('button#clr-accordion-header-clr-id-6-1', form => form.click());
-          await page.waitForTimeout(1000);
+          await page.waitForTimeout(350);
         }
       }
     }

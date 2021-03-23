@@ -76,15 +76,13 @@ module.exports = class Runner {
   group(testGroup) {
     this.reporter.info(`Created test group \'${testGroup.name}\'. Tests count: ${testGroup.tests.length}`);
     if (this.config.testGroups === '' || this.config.testGroups.includes(testGroup.name)) {
-      for (const test of testGroup.tests) {
-        test.options = {...test.options, ...{}}
-        test.options.name = test.name;
-        if (test.options && test.options.focus) {
-          this.fit(test.url, test.options)
-        } else {
-          this.it(test.url, test.options);
+      (testGroup.tests || []).forEach((test) => {
+        test.options = {...test.options, ...{ name: test.name }}
+        if (test.options.focus) {
+          return this.fit(test.url, test.options)
         }
-      }
+        this.it(test.url, test.options);
+      })
     }
   }
 
@@ -140,10 +138,12 @@ module.exports = class Runner {
 
     if (this.overwrite) this.reporter.info(`Overwriting base images`);
 
-    for (let i=0; i < listOfTests.length; i++) {
-      const test = listOfTests[i]
-      await this.runTest.bind(this)(test.url, test.options, i);
-    }
+    await Promise.all(listOfTests.map(
+      async(test, index) => {
+        return await this.runTest.bind(this)(test.url, test.options, index);
+      })
+    );
+
 
     await this._afterRun();
 
